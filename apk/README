@@ -1,3 +1,10 @@
 Under Apache License 2.0
 
-Please see project page: https://code.google.com/p/android-python27/
+- Please see project page: https://code.google.com/p/android-python27/
+
+- Once APK installed Python 2.7 can also be used from a shell, you just need before to:
+
+export PYTHONHOME=/data/data/com.android.python27/files/python
+export PYTHONPATH=/mnt/sdcard/com.android.python27/extras/python:/data/data/com.android.python27/files/python/lib/python2.6/lib-dynload:/data/data/com.android.python27/files/python/lib/python2.6
+export PATH=$PYTHONHOME/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/data/com.android.python27/files/python/lib:/data/data/com.android.python27/files/python/lib/python2.6/lib-dynload
