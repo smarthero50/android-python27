@@ -1,6 +1,13 @@
 #!/usr/bin/env sh
+set -e
+npath() { python -c "import sys, os; print os.path.normpath(os.path.abspath(os.path.join(*sys.argv[1:])))" $@; }
 
-export ROOTDIR=$(dirname $(readlink -f $0))
+# ROOTDIR is the directory holding all the scripts configs, BUILDDIR is the current working dir (stage)
+export ROOTDIR=$( npath "$0" ".." )
+export BUILDDIR=$( pwd )
+. "$ROOTDIR/functions.sh" && readconfig "$ROOTDIR/config.sh" "$BUILDDIR/config.sh"
+
+
 export HOSTPYTHON=$ROOTDIR/hostpython
 export HOSTPGEN=$ROOTDIR/hostpgen
 
@@ -58,6 +65,9 @@ build_python() {
         prefix="$ROOTDIR/build" INSTSONAME=libpython2.7.so $MODULE
     fi
 }
+
+export PATH=$NDK:$PATH
+echo $NDK
 
 build_jni
 build_openssl
