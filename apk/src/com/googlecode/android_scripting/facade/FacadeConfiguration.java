@@ -86,6 +86,7 @@ public class FacadeConfiguration {
 
     if (sSdkLevel >= 4) {
       sFacadeClassList.add(TextToSpeechFacade.class);
+      sFacadeClassList.add(ACustomFacade.class);
     } else {
       sFacadeClassList.add(EyesFreeFacade.class);
     }
