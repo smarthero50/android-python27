@@ -2,6 +2,7 @@ package com.android.python27.process;
 
 import android.os.Environment;
 
+import com.android.python27.ScriptApplication;
 import com.android.python27.config.GlobalConstants;
 import com.googlecode.android_scripting.Analytics;
 import com.googlecode.android_scripting.AndroidProxy;
@@ -21,7 +22,7 @@ public class InterpreterProcess extends Process {
   private final Interpreter mInterpreter;
   private String mCommand;
   
-  private String pyname = "python";
+  private String pyname = GlobalConstants.PYTHON_NAME;
   private File binary = null;
   private String niceName;
   private String interactiveCommand;
@@ -51,7 +52,7 @@ public class InterpreterProcess extends Process {
 //    // this means we are using our embedded python
 //    else {
     	niceName = GlobalConstants.PYTHON_NICE_NAME;
-        pyname = "python";
+        pyname = GlobalConstants.PYTHON_NAME;
         interactiveCommand = "";
         arguments = new ArrayList<String>();
 //    }
@@ -120,7 +121,7 @@ public class InterpreterProcess extends Process {
 
   @Override
   public String getSdcardPackageDirectory() {
-    return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + GlobalConstants.PACKAGE_NAME;
+    return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + ScriptApplication.getThePackageName();
   }
   
   public RpcReceiverManagerFactory getRpcReceiverManagerFactory()
