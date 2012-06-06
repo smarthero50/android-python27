@@ -35,7 +35,12 @@
 			<action android:name="com.android.python27.ScriptService" />
 		</intent-filter>
 	</service>
-
+    <service 	android:name="BackgroundScriptService">
+    	<intent-filter>
+			<action android:name="com.android.python27.BackgroundScriptService" />
+		</intent-filter>
+	</service>
+	
     <activity 	android:configChanges="keyboardHidden|orientation"
       			android:name="com.googlecode.android_scripting.activity.FutureActivity" 
       			android:theme="@android:style/Theme.Translucent"/>

@@ -142,7 +142,12 @@ public class ScriptActivity extends Activity {
 	  }
 	
   private void runScriptService() {
-	  startService(new Intent(this, ScriptService.class));
+	  if(GlobalConstants.IS_FOREGROUND_SERVICE) {
+		  startService(new Intent(this, ScriptService.class));
+	  }
+	  else {
+		  startService(new Intent(this, BackgroundScriptService.class)); 
+	  }
   }
   
 	private void createOurExternalStorageRootDir() {
