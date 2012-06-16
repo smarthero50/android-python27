@@ -45,7 +45,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class ScriptActivity extends Activity {
-	Button buttonInstall;
 	ProgressDialog myProgressDialog; 
 	  
 	@Override
@@ -64,16 +63,8 @@ public class ScriptActivity extends Activity {
     	boolean installNeeded = isInstallNeeded();
 		
     	if(installNeeded) {
-    		setContentView(R.layout.install);
-    	     
-    		buttonInstall = (Button)findViewById(R.id.startinstall);
-    		buttonInstall.setOnClickListener(new Button.OnClickListener(){
-
-    		@Override
-    		public void onClick(View v) {
-    		  new InstallAsyncTask().execute();
-    		  buttonInstall.setClickable(false);
-    		}});
+    	  setContentView(R.layout.install);	
+  		  new InstallAsyncTask().execute();
     	}
     	else {
     	    runScriptService();
@@ -210,7 +201,7 @@ public class ScriptActivity extends Activity {
 					// python -> /data/data/com.android.python27/files/python
 					else if (sFileName.endsWith(GlobalConstants.PYTHON_ZIP_NAME)) {
 						succeed &= Utils.unzip(content, this.getFilesDir().getAbsolutePath()+ "/", true);
-						FileUtils.chmod(new File(this.getFilesDir().getAbsolutePath()+ GlobalConstants.PYTHON_BIN_RELATIVE_PATH ), 755);
+						FileUtils.chmod(new File(this.getFilesDir().getAbsolutePath()+ "/python/bin/python" ), 755);
 					}
 					// python extras -> /sdcard/com.android.python27/extras/python
 					else if (sFileName.endsWith(GlobalConstants.PYTHON_EXTRAS_ZIP_NAME)) {
