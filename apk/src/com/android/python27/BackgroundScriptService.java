@@ -182,8 +182,10 @@ public class BackgroundScriptService extends Service {
 		myScriptProcess = MyScriptProcess.launchScript(script, mInterpreterConfiguration, mProxy, new Runnable() {
 					@Override
 					public void run() {
-						//mProxy.shutdown();
-						//stopSelf(startId);
+						mProxy.shutdown();
+						stopSelf(startId);
+						killProcess();
+						android.os.Process.killProcess(android.os.Process.myPid());
 						
 						// hard force restart
 //				        if (!ScriptService.this.killMe) {
