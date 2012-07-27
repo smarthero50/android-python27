@@ -201,7 +201,7 @@ public class ScriptActivity extends Activity {
 					// python -> /data/data/com.android.python27/files/python
 					else if (sFileName.endsWith(GlobalConstants.PYTHON_ZIP_NAME)) {
 						succeed &= Utils.unzip(content, this.getFilesDir().getAbsolutePath()+ "/", true);
-						FileUtils.chmod(new File(this.getFilesDir().getAbsolutePath()+ "/python/bin/python" ), 755);
+						FileUtils.chmod(new File(this.getFilesDir().getAbsolutePath()+ "/python/bin/python" ), 0755);
 					}
 					// python extras -> /sdcard/com.android.python27/extras/python
 					else if (sFileName.endsWith(GlobalConstants.PYTHON_EXTRAS_ZIP_NAME)) {
