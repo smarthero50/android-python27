@@ -1,3 +1,0 @@
-target = QtTest
-sources = sipQtTestcmodule.cpp sipQtTestQTestQTouchEventSequence.cpp sipQtTestQTest.cpp
-headers = sipAPIQtTest.h
