@@ -48,7 +48,7 @@ build_openssl() {
 build_python() {
     cd $ROOTDIR/Python
     make distclean
-    ./configure --host=arm-eabi --build=i386-linux-gnu --enable-shared
+    ./configure --host=arm-eabi --build=i386-linux-gnu --enable-ipv6 --enable-shared
     cat pyconfig.h \
     | sed -e '/HAVE_FDATASYNC/ c#undef HAVE_FDATASYNC' \
     | sed -e '/HAVE_KILLPG/ c#undef HAVE_KILLPG' \
