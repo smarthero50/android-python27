@@ -47,7 +47,11 @@ build_openssl() {
 
 build_python() {
     cd $ROOTDIR/Python
-    make distclean
+
+    if [ -f .fpass ]; then
+      make distclean
+    fi
+
     ./configure --host=arm-eabi --build=i386-linux-gnu --enable-ipv6 --enable-shared
     cat pyconfig.h \
     | sed -e '/HAVE_FDATASYNC/ c#undef HAVE_FDATASYNC' \
@@ -64,6 +68,8 @@ build_python() {
         $MAKE install HOSTPYTHON=$HOSTPYTHON BLDSHARED="$BLDSHARED" CROSS_COMPILE=arm-eabi- CROSS_COMPILE_TARGET=yes \
         prefix="$ROOTDIR/build" INSTSONAME=libpython2.7.so $MODULE
     fi
+
+    touch .fpass
 }
 
 export PATH=$NDK:$PATH
