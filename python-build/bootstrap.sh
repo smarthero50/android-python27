@@ -27,6 +27,7 @@ if [ ! -e "$BUILDDIR/Python" ]; then
     
     patch -p1 < "$ROOTDIR/patch/Python-2.7.2-xcompile.patch"
     patch -p1 < "$ROOTDIR/patch/Python-2.7.2-android.patch"
+    #patch -p1 -i "$ROOTDIR/patch/Python-2.7.2-getplatform.patch"
     patch -p1 -i "$ROOTDIR/patch/Python-2.7.2-site-relax-include-config.patch"
     patch -p1 -i "$ROOTDIR/patch/Python-2.7.2-enable_ipv6.patch"
     patch -p1 -i "$ROOTDIR/patch/Python-2.7.2-filesystemdefaultencoding.patch"
