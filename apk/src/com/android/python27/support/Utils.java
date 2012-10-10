@@ -180,9 +180,9 @@ public class Utils {
     				}
     		    }		
     		//}
-    		else {
-                Log.e(GlobalConstants.LOG_TAG,"createDirectoryOnExternalStorage error: " + "External storage is not mounted");		
-    		}
+    		//else {
+            //    Log.e(GlobalConstants.LOG_TAG,"createDirectoryOnExternalStorage error: " + "External storage is not mounted");		
+    		//}
 		} catch (Exception e) {
             Log.e(GlobalConstants.LOG_TAG,"createDirectoryOnExternalStorage error: " + e);		
 		}
