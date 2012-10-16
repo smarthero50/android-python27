@@ -123,7 +123,7 @@ public class Utils {
 		       }
 		       
 		       // enable standalone python
-		       if(file.getName().endsWith(".so")) {
+		       if(file.getName().endsWith(".so") || file.getName().endsWith(".py") || file.getName().endsWith(".pyc") || file.getName().endsWith(".pyo")) {
 			       FileUtils.chmod(file, 0755);
 		       }
 
