@@ -15,6 +15,7 @@ cp -r libs/armeabi/libcrypt.so  output/python/lib/libcrypt.so
 cp -r openssl/libs/armeabi/libcrypto.so  output/python/lib/libcrypto.so
 cp -r openssl/libs/armeabi/libssl.so  output/python/lib/libssl.so
 cp -r build/lib/python2.7/lib-dynload/*  output/python/lib/python2.7/lib-dynload/
+cp -r pycrypto-2.6/build/lib*/Crypto output/python/lib/python2.7/lib-dynload/
 #find pycrypto-2.6/build/lib* -name "*.so" -exec cp -v {} output/python/lib/python2.7/lib-dynload/ \;
 
 cd output
@@ -25,12 +26,12 @@ cd ..
 mkdir -p output/extras/python
 
 cp -r build/lib/python2.7/* output/extras/python/
-cp -r pycrypto-2.6/build/lib*/* output/extras/python/ # import from site-packages not working
+#cp -r pycrypto-2.6/build/lib*/* output/extras/python/ # import from site-packages not working
 
 cd output/extras/python
 rm -rf config
 rm -rf lib-dynload
-rm -v `find . | grep "\.pyc$\|.egg-info$\|.doc$\|.pyo$\|.txt$"`
+rm -v `find . | grep "\.so$\|.pyc$\|.egg-info$\|.doc$\|.pyo$\|.txt$"`
 rm -r `find . | grep test`
 cp ../../../android.py .
 
