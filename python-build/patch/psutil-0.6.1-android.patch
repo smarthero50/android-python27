@@ -1,6 +1,6 @@
 diff -wuprN psutil-0.6.1/psutil/_psutil_linux.c psutil-0.6.1-new/psutil/_psutil_linux.c
 --- psutil-0.6.1/psutil/_psutil_linux.c	2012-08-13 14:26:21.000000000 +0200
-+++ psutil-0.6.1-new/psutil/_psutil_linux.c	2012-11-16 19:05:00.000000000 +0100
++++ psutil-0.6.1-new/psutil/_psutil_linux.c	2012-11-17 08:46:31.044965899 +0100
 @@ -94,6 +94,151 @@ linux_ioprio_set(PyObject* self, PyObjec
  }
  #endif
@@ -165,91 +165,35 @@ diff -wuprN psutil-0.6.1/psutil/_psutil_linux.c psutil-0.6.1-new/psutil/_psutil_
              goto error;
          }
          py_tuple = Py_BuildValue("(ssss)", entry->mnt_fsname,  // device
-@@ -164,44 +309,48 @@ get_sysinfo(PyObject* self, PyObject* ar
+@@ -164,6 +309,18 @@ get_sysinfo(PyObject* self, PyObject* ar
  }
  
  
-+// TODO android
++static int
++sched_setaffinity(pid_t pid, size_t len, cpu_set_t const * cpusetp)
++{
++	return syscall(__NR_sched_setaffinity, pid, len, cpusetp);
++}
++
++static int
++sched_getaffinity(pid_t pid, size_t len, cpu_set_t const * cpusetp)
++{
++	return syscall(__NR_sched_getaffinity, pid, len, cpusetp);
++}
++
  /*
   * Return process CPU affinity as a Python long (the bitmask)
   */
- static PyObject*
- get_process_cpu_affinity(PyObject* self, PyObject* args)
- {
--    unsigned long mask;
--    unsigned int len = sizeof(mask);
--    long pid;
--
--    if (!PyArg_ParseTuple(args, "i", &pid)) {
--        return NULL;
--    }
--    if (sched_getaffinity(pid, len, (cpu_set_t *)&mask) < 0) {
-         return PyErr_SetFromErrno(PyExc_OSError);
--    }
--    return Py_BuildValue("l", mask);
--}
-+    //unsigned long mask;
-+    //unsigned int len = sizeof(mask);
-+    //long pid;
- 
-+    //if (!PyArg_ParseTuple(args, "i", &pid)) {
-+    //    return NULL;
-+    //}
-+    //if (sched_getaffinity(pid, len, (cpu_set_t *)&mask) < 0) {
-+    //    return PyErr_SetFromErrno(PyExc_OSError);
-+    //}
- 
-+    //return Py_BuildValue("l", mask);
-+}
-+
-+// TODO android
- /*
-  * Set process CPU affinity; expects a bitmask
-  */
- static PyObject*
- set_process_cpu_affinity(PyObject* self, PyObject* args)
- {
--    unsigned long mask;
--    unsigned int len = sizeof(mask);
--    long pid;
--
--    if (!PyArg_ParseTuple(args, "ll", &pid, &mask)) {
--        return NULL;
--    }
--    if (sched_setaffinity(pid, len, (cpu_set_t *)&mask)) {
-         return PyErr_SetFromErrno(PyExc_OSError);
--    }
--    Py_INCREF(Py_None);
--    return Py_None;
-+    //unsigned long mask;
-+    //unsigned int len = sizeof(mask);
-+    //long pid;
-+
-+    //if (!PyArg_ParseTuple(args, "ll", &pid, &mask)) {
-+    //    return NULL;
-+    //}
-+    //if (sched_setaffinity(pid, len, (cpu_set_t *)&mask)) {
-+    //    return PyErr_SetFromErrno(PyExc_OSError);
-+    //}
-+    //Py_INCREF(Py_None);
-+    //return Py_None;
- }
- 
- 
 diff -wuprN psutil-0.6.1/psutil/_psutil_linux.h psutil-0.6.1-new/psutil/_psutil_linux.h
 --- psutil-0.6.1/psutil/_psutil_linux.h	2012-08-13 14:26:21.000000000 +0200
-+++ psutil-0.6.1-new/psutil/_psutil_linux.h	2012-11-16 18:59:23.000000000 +0100
-@@ -10,6 +10,161 @@
++++ psutil-0.6.1-new/psutil/_psutil_linux.h	2012-11-17 08:28:42.000000000 +0100
+@@ -10,6 +10,157 @@
  
  #include <Python.h>
  
 +#ifndef MOUNTED
 +#define MOUNTED "/proc/mounts" // android
 +#endif
-+
-+// TODO: sched_setaffinity and sched_getaffinity missing http://code.google.com/p/android/issues/detail?id=19851
-+//extern int sched_setaffinity(pid_t pid, size_t setsize, const cpu_set_t* set);
-+//extern int sched_getaffinity(pid_t pid, size_t setsize, cpu_set_t* set);
 +
 +extern int sched_getcpu(void);
 +
