@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES := sqlite3.c
+LOCAL_SRC_FILES := sqlite3.c shell.c
 
 # NOTE the following flags,
 #   SQLITE_TEMP_STORE=3 causes all TEMP files to go into RAM. and thats the behavior we want
