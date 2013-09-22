@@ -1,6 +1,18 @@
 diff -wuprN psutil-0.6.1/psutil/_pslinux.py psutil-0.6.1-new/psutil/_pslinux.py
 --- psutil-0.6.1/psutil/_pslinux.py	2012-08-16 17:07:37.000000000 +0200
-+++ psutil-0.6.1-new/psutil/_pslinux.py	2012-12-28 12:08:47.098402777 +0100
++++ psutil-0.6.1-new/psutil/_pslinux.py	2013-09-21 14:20:14.240988106 +0200
+@@ -455,9 +455,9 @@ class Process(object):
+         f = open("/proc/%s/io" % self.pid)
+         try:
+             for line in f:
+-                if line.startswith("rchar"):
++                if line.startswith("syscr"):
+                     read_count = int(line.split()[1])
+-                elif line.startswith("wchar"):
++                elif line.startswith("syscw"):
+                     write_count = int(line.split()[1])
+                 elif line.startswith("read_bytes"):
+                     read_bytes = int(line.split()[1])
 @@ -588,7 +588,7 @@ class Process(object):
                             data['Shared_Clean:'], data['Shared_Clean:'],
                             data['Private_Clean:'], data['Private_Dirty:'],
@@ -12,7 +24,7 @@ diff -wuprN psutil-0.6.1/psutil/_pslinux.py psutil-0.6.1-new/psutil/_pslinux.py
          except EnvironmentError:
 diff -wuprN psutil-0.6.1/psutil/_psutil_linux.c psutil-0.6.1-new/psutil/_psutil_linux.c
 --- psutil-0.6.1/psutil/_psutil_linux.c	2012-08-13 14:26:21.000000000 +0200
-+++ psutil-0.6.1-new/psutil/_psutil_linux.c	2012-12-18 12:41:12.938814617 +0100
++++ psutil-0.6.1-new/psutil/_psutil_linux.c	2013-09-21 14:15:55.844987989 +0200
 @@ -94,6 +94,151 @@ linux_ioprio_set(PyObject* self, PyObjec
  }
  #endif
@@ -198,7 +210,7 @@ diff -wuprN psutil-0.6.1/psutil/_psutil_linux.c psutil-0.6.1-new/psutil/_psutil_
   */
 diff -wuprN psutil-0.6.1/psutil/_psutil_linux.h psutil-0.6.1-new/psutil/_psutil_linux.h
 --- psutil-0.6.1/psutil/_psutil_linux.h	2012-08-13 14:26:21.000000000 +0200
-+++ psutil-0.6.1-new/psutil/_psutil_linux.h	2012-12-18 12:41:12.938814617 +0100
++++ psutil-0.6.1-new/psutil/_psutil_linux.h	2013-09-21 14:15:55.844987989 +0200
 @@ -10,6 +10,157 @@
  
  #include <Python.h>
@@ -359,7 +371,7 @@ diff -wuprN psutil-0.6.1/psutil/_psutil_linux.h psutil-0.6.1-new/psutil/_psutil_
  static PyObject* get_disk_partitions(PyObject* self, PyObject* args);
 diff -wuprN psutil-0.6.1/setup.py psutil-0.6.1-new/setup.py
 --- psutil-0.6.1/setup.py	2012-08-13 14:26:22.000000000 +0200
-+++ psutil-0.6.1-new/setup.py	2012-12-18 12:41:12.938814617 +0100
++++ psutil-0.6.1-new/setup.py	2013-09-21 14:15:55.844987989 +0200
 @@ -8,6 +8,29 @@
  
  import sys
