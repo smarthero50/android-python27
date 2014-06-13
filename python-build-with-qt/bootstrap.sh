@@ -45,7 +45,7 @@ fi
 
 if [ ! -e "$BUILDDIR/openssl" ]; then
     cd "$BUILDDIR"
-    git clone https://github.com/guardianproject/openssl-android.git openssl
+    git clone https://github.com/devpack/openssl-android.git openssl
 fi
 
 if [ ! -d "$BUILDDIR/toolchain" ]; then
